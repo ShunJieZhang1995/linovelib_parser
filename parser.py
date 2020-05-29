@@ -2,8 +2,13 @@ import requests
 import time
 from bs4 import BeautifulSoup
 from opencc import OpenCC
+import sys
 
-web = 'https://m.linovelib.com/novel/111/121830.html'
+if len(sys.argv) != 2 :
+    print('error')
+    sys.exit()
+
+web = sys.argv[1]
 content = requests.get(web)
 soup = BeautifulSoup(content.text, "html.parser")
 soup_title = soup.findAll('h1', class_="atitle")
