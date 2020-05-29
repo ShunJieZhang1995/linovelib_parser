@@ -11,13 +11,13 @@ if len(sys.argv) != 2 :
 web = sys.argv[1]
 content = requests.get(web)
 soup = BeautifulSoup(content.text, "html.parser")
-soup_title = soup.findAll('h1', class_="atitle")
+soup_title = soup.findAll('h1', class_="title_txtbox")
 title = soup_title[0].text
 cc = OpenCC('s2tw')
 title = cc.convert(title)
 
 soup_list = [ ]
-soup_list.append(soup.findAll('div', class_="acontent"))
+soup_list.append(soup.findAll('div', class_="content"))
 
 web = web[0:(len(web)-5)]
 
@@ -26,8 +26,8 @@ while True:
     time.sleep( 1 )
     content = requests.get(web+'_'+str(i)+'.html')
     soup = BeautifulSoup(content.text, "html.parser")
-    soup_text = soup.findAll('div', class_="acontent")
-    if soup_text[0].text == '':
+    soup_text = soup.findAll('div', class_="content")
+    if soup_text[0].text == '\n\n':
         break
     soup_list.append(soup_text)
     i = i+1
